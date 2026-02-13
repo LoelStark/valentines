@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentines 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffc1cc, #ffe4ec);
+      font-family: "Segoe UI", Arial, sans-serif;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .container {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      padding: 28px 20px;
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(255, 105, 135, 0.25);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 14px 22px;
+      transition: 0.25s ease;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    }
+
+    #yesBtn {
+      background-color: #ff4d8d;
+      color: white;
+      transform: scale(1);
+    }
+
+    #noBtn {
+      background-color: #f1f1f1;
+      color: #333;
+      transform: scale(1);
+    }
+
+    #message {
+      margin-top: 18px;
+      font-weight: 600;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <p style="margin-bottom:8px;font-weight:600;color:#ff4d8d;">Loel is asking you to be his valentines 💘</p>
+    <h1 id="question">Will you be my valentines? 💌🥺</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const question = document.getElementById("question");
+
+    let yesScale = 1;
+    let noScale = 1;
+    let noClicks = 0;
+
+    yesBtn.addEventListener("click", () => {
+      question.innerText = "Yay!! 💘✨";
+      message.innerText = "You just made my day 🥰";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+    });
+
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+
+      question.innerText = "Are you sure? 🥺👉👈";
+
+      // Increase Yes size
+      yesScale += 0.25;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      // Decrease No size
+      noScale -= 0.1;
+      if (noScale < 0.35) noScale = 0.35;
+      noBtn.style.transform = `scale(${noScale})`;
+
+      if (noClicks > 2) {
+        message.innerText = "The Yes button is kinda cute though 😌💗";
+      }
+    });
+  </script>
+
+</body>
+</html>
