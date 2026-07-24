@@ -1,135 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentines 💖</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for panda 🐼💗</title>
+<style>
+  :root {
+    --blush: #f9e4e4;
+    --cream: #fdf6f0;
+    --deep-pink: #e58a9a;
+    --soft-red: #d1495b;
+    --panda-black: #2b2622;
+    --gold: #e3a857;
+    --sage: #9cae8c;
+  }
 
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ffc1cc, #ffe4ec);
-      font-family: "Segoe UI", Arial, sans-serif;
-      text-align: center;
-      padding: 16px;
-    }
+  * { box-sizing: border-box; }
 
-    .container {
-      background: #fff;
-      width: 100%;
-      max-width: 420px;
-      padding: 28px 20px;
-      border-radius: 22px;
-      box-shadow: 0 12px 30px rgba(255, 105, 135, 0.25);
-    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: radial-gradient(circle at 50% 0%, var(--blush) 0%, var(--cream) 55%, #f6ece2 100%);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    overflow-x: hidden;
+    color: var(--panda-black);
+  }
 
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 24px;
-      line-height: 1.4;
-    }
+  /* floating hearts + soft web hint */
+  .float-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
 
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
+  .floaty {
+    position: absolute;
+    bottom: -10%;
+    font-size: 1.4rem;
+    opacity: 0.35;
+    animation: rise linear infinite;
+  }
 
-    button {
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 14px 22px;
-      transition: 0.25s ease;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-    }
+  @keyframes rise {
+    to { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+  }
 
-    #yesBtn {
-      background-color: #ff4d8d;
-      color: white;
-      transform: scale(1);
-    }
+  .stage {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px 90px;
+    text-align: center;
+  }
 
-    #noBtn {
-      background-color: #f1f1f1;
-      color: #333;
-      transform: scale(1);
-    }
+  .panda-face {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.1s forwards, sway 3.5s ease-in-out 1s infinite;
+  }
 
-    #message {
-      margin-top: 18px;
-      font-weight: 600;
-      color: #555;
-      font-size: 0.95rem;
-    }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
 
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 1.3rem;
-      }
+  .eyebrow {
+    font-family: 'Trebuchet MS', sans-serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--soft-red);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.3s forwards;
+  }
 
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+  h1 {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: clamp(2rem, 7vw, 3.4rem);
+    line-height: 1.15;
+    margin: 0 0 14px;
+    color: var(--soft-red);
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.5s forwards;
+  }
+
+  .apology-text {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    max-width: 480px;
+    margin: 0 auto 10px;
+    line-height: 1.75;
+    color: #5c4f47;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.7s forwards;
+  }
+
+  .apology-text strong {
+    color: var(--soft-red);
+  }
+
+  .divider {
+    margin: 30px auto 26px;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 0.9s forwards;
+  }
+
+  .ask-text {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: clamp(1.1rem, 3.4vw, 1.4rem);
+    font-weight: bold;
+    color: var(--panda-black);
+    margin: 0 0 6px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.05s forwards;
+  }
+
+  .ask-sub {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.95rem;
+    color: #8a7b71;
+    margin: 0 0 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.15s forwards;
+  }
+
+  .movie-card {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(213, 148, 148, 0.4);
+    border-radius: 18px;
+    padding: 24px 30px;
+    max-width: 400px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(209, 73, 91, 0.08);
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.3s forwards;
+  }
+
+  .movie-card .film {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    font-size: 1.35rem;
+    color: var(--soft-red);
+    margin: 0 0 10px;
+  }
+
+  .movie-card .detail {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.92rem;
+    color: #6b5d54;
+    margin: 5px 0;
+  }
+
+  .panda-emoji {
+    font-size: 2rem;
+    margin-top: 8px;
+    display: inline-block;
+    animation: sway 3s ease-in-out infinite;
+  }
+
+  .btn-row {
+    margin-top: 38px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    min-height: 70px;
+  }
+
+  button {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 15px 34px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  #yesBtn {
+    background: linear-gradient(135deg, var(--deep-pink), var(--soft-red));
+    color: var(--cream);
+    box-shadow: 0 8px 22px rgba(209, 73, 91, 0.35);
+    position: relative;
+    z-index: 3;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, font-size 0.2s ease;
+  }
+
+  #yesBtn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 26px rgba(209, 73, 91, 0.5);
+  }
+
+  #noBtn {
+    background: transparent;
+    color: #a8988d;
+    border: 1.5px solid rgba(168, 152, 141, 0.4);
+    position: relative;
+    z-index: 2;
+  }
+
+  #noBtn:hover {
+    border-color: var(--gold);
+    color: var(--soft-red);
+  }
+
+  .hint {
+    margin-top: 18px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.85rem;
+    color: #a8988d;
+    opacity: 0;
+    animation: fadeUp 0.8s ease-out 1.5s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* success screen */
+  .success {
+    display: none;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 20px;
+  }
+
+  .success.show { display: flex; }
+  .stage.hide { display: none; }
+
+  .success .big-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    animation: sway 2.5s ease-in-out infinite;
+  }
+
+  .success h1 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: clamp(2.1rem, 8vw, 3.6rem);
+    color: var(--soft-red);
+    margin: 0 0 14px;
+  }
+
+  .success p {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: clamp(0.98rem, 3vw, 1.15rem);
+    max-width: 460px;
+    line-height: 1.7;
+    color: #5c4f47;
+    margin: 6px 0;
+  }
+
+  .screenshot-prompt {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px dashed rgba(213, 148, 148, 0.5);
+    max-width: 420px;
+  }
+
+  .ss-text {
+    font-size: 0.95rem !important;
+    color: #8a7b71 !important;
+    margin-bottom: 18px !important;
+  }
+
+  #waBtn {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 15px 32px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  #waBtn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+  }
+
+  .confetti {
+    position: fixed;
+    top: -20px;
+    z-index: 5;
+    pointer-events: none;
+    font-size: 1.3rem;
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.75rem;
+    color: #b3a89c;
+    padding-bottom: 26px;
+  }
+</style>
 </head>
 <body>
 
-  <div class="container">
-    <p style="margin-bottom:8px;font-weight:600;color:#ff4d8d;">Loel is asking you to be his valentines 💘</p>
-    <h1 id="question">Will you be my valentines? 💌🥺</h1>
+<div class="float-layer" id="floatLayer"></div>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 💖</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
+<div class="stage" id="stage">
+  <div class="panda-face">🐼</div>
+  <div class="eyebrow">a little note for you</div>
+  <h1>I'm sorry, Panda 💗</h1>
+  <p class="apology-text">
+    I know things were rough for a bit, and I hate that I made you upset.
+    You mean the world to me, and I just want to see you smile again.
+    <strong>I'm sorry</strong> — for real. Let me make it up to you?
+  </p>
 
-    <p id="message"></p>
+  <div class="divider"></div>
+
+  <p class="ask-text">So... truce? 🐼🤍</p>
+  <p class="ask-sub">Let's go be silly and cozy together, just the two of us.</p>
+
+  <div class="movie-card">
+    <div class="film">SPIDER-MAN: BRAND NEW DAY</div>
+    <div class="detail">🍿 Popcorn: my treat, no arguing</div>
+    <div class="detail">🤍 Seats: right next to you, always</div>
+    <div class="detail">🐼 Bonus: I'll hold your hand the whole time</div>
+    <div class="panda-emoji">🐼🕸️🤍</div>
   </div>
 
-  <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const message = document.getElementById("message");
-    const question = document.getElementById("question");
+  <div class="btn-row" id="btnRow">
+    <button id="yesBtn" onclick="sayYes()">Yes, let's make up 💗</button>
+    <button id="noBtn" onclick="dodgeNo(event)">No thanks</button>
+  </div>
 
-    let yesScale = 1;
-    let noScale = 1;
-    let noClicks = 0;
+  <div class="hint" id="hint">the no button is feeling a little shy today</div>
+</div>
 
-    yesBtn.addEventListener("click", () => {
-      question.innerText = "Yay!! 💘✨";
-      message.innerText = "You just made my day 🥰";
-      yesBtn.style.display = "none";
-      noBtn.style.display = "none";
-    });
+<div class="success" id="success">
+  <div class="big-emoji">🐼💗🕸️</div>
+  <h1>Thank you for forgiving me</h1>
+  <p>You have no idea how happy this makes me.</p>
+  <p>Movie date: locked in. Popcorn: extra butter. Hand-holding: mandatory.</p>
+  <p>I promise to do better, always. See you soon, Panda. 🎬🤍</p>
 
-    noBtn.addEventListener("click", () => {
-      noClicks++;
+  <div class="screenshot-prompt">
+    <p class="ss-text">📸 Take a screenshot of this and send it to me on WhatsApp — I want to keep it forever.</p>
+    <button id="waBtn" onclick="sendWhatsApp()">Send on WhatsApp</button>
+  </div>
+</div>
 
-      question.innerText = "Are you sure? 🥺👉👈";
+<footer>made with love, a lot of sorry, and zero radioactive spiders</footer>
 
-      // Increase Yes size
-      yesScale += 0.25;
-      yesBtn.style.transform = `scale(${yesScale})`;
+<script>
+  // gentle floating hearts/paws in background
+  const floatLayer = document.getElementById('floatLayer');
+  const floatEmojis = ['💗', '🤍', '🐾', '🕸️'];
+  for (let i = 0; i < 18; i++) {
+    const el = document.createElement('div');
+    el.className = 'floaty';
+    el.textContent = floatEmojis[Math.floor(Math.random() * floatEmojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.animationDuration = (10 + Math.random() * 12) + 's';
+    el.style.animationDelay = (Math.random() * 10) + 's';
+    el.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+    floatLayer.appendChild(el);
+  }
 
-      // Decrease No size
-      noScale -= 0.1;
-      if (noScale < 0.35) noScale = 0.35;
-      noBtn.style.transform = `scale(${noScale})`;
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
+  const btnRow = document.getElementById('btnRow');
+  const hint = document.getElementById('hint');
+  let dodgeCount = 0;
+  const dodgeMessages = [
+    "the no button is feeling a little shy today",
+    "aw, come on 🥺",
+    "it slipped away, sorry",
+    "still trying to be brave over here",
+    "you can't catch this one",
+    "just say yes, panda 🐼💗",
+    "the no button has officially given up",
+  ];
 
-      if (noClicks > 2) {
-        message.innerText = "The Yes button is kinda cute though 😌💗";
-      }
-    });
-  </script>
+  function dodgeNo(e) {
+    e.preventDefault();
+    dodgeCount++;
+
+    const rowRect = btnRow.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+    const maxX = rowRect.width - btnRect.width - 10;
+    const maxY = 55;
+
+    const randX = Math.random() * maxX - (maxX / 2);
+    const randY = (Math.random() * maxY) - (maxY / 2);
+
+    noBtn.style.position = 'relative';
+    noBtn.style.transform = `translate(${randX}px, ${randY}px)`;
+
+    const scale = Math.min(1 + dodgeCount * 0.07, 1.5);
+    yesBtn.style.transform = `scale(${scale})`;
+    yesBtn.style.fontSize = (1 + dodgeCount * 0.035) + 'rem';
+
+    hint.textContent = dodgeMessages[Math.min(dodgeCount, dodgeMessages.length - 1)];
+  }
+
+  function sayYes() {
+    document.getElementById('stage').classList.add('hide');
+    document.getElementById('success').classList.add('show');
+    launchConfetti();
+  }
+
+  function sendWhatsApp() {
+    const message = "I forgave you 💗🐼 Screenshot attached — see you at Spider-Man: Brand New Day 🎬🤍";
+    const url = "https://wa.me/?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+  }
+
+  function launchConfetti() {
+    const emojis = ['💗', '🤍', '🐼', '🎬', '🕸️', '🐾'];
+    for (let i = 0; i < 55; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'confetti';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 5000);
+      }, i * 60);
+    }
+  }
+</script>
 
 </body>
 </html>
